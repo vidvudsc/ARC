@@ -15,6 +15,10 @@ PRETTY_FIELD_PATTERNS = {
     "step": re.compile(r"(?:^|\|)\s*step\s+(\d+)"),
     "loss": re.compile(r"(?:^|\|)\s*loss\s+([0-9.eE+-]+)"),
     "val_loss": re.compile(r"(?:^|\|)\s*val\s+([0-9.eE+-]+)"),
+    "text_val_loss": re.compile(r"(?:^|\|)\s*text_val\s+([0-9.eE+-]+)"),
+    "image_val_loss": re.compile(r"(?:^|\|)\s*img_val\s+([0-9.eE+-]+)"),
+    "wrong_image_loss": re.compile(r"(?:^|\|)\s*wrong\s+([0-9.eE+-]+)"),
+    "blank_image_loss": re.compile(r"(?:^|\|)\s*blank\s+([0-9.eE+-]+)"),
     "lr": re.compile(r"(?:^|\|)\s*lr\s+([0-9.eE+-]+)"),
     "tokens_seen": re.compile(r"(?:^|\|)\s*tok\s+([0-9,]+)"),
     "interval_tokens_per_second": re.compile(r"(?:^|\|)\s*it/s\s+([0-9,]+)"),
@@ -88,6 +92,7 @@ def write_csv(rows: list[dict[str, Any]], path: Path) -> None:
 def plot_loss(rows: list[dict[str, Any]], out: Path) -> None:
     train = [(r["step"], r["loss"]) for r in rows if "loss" in r]
     val = [(r["step"], r["val_loss"]) for r in rows if "val_loss" in r]
+    text_val = [(r["step"], r["text_val_loss"]) for r in rows if "text_val_loss" in r]
     image_val = [(r["step"], r["image_val_loss"]) for r in rows if "image_val_loss" in r]
     wrong = [(r["step"], r["wrong_image_loss"]) for r in rows if "wrong_image_loss" in r]
     blank = [(r["step"], r["blank_image_loss"]) for r in rows if "blank_image_loss" in r]
@@ -96,6 +101,8 @@ def plot_loss(rows: list[dict[str, Any]], out: Path) -> None:
         ax.plot(*zip(*train), label="train loss", linewidth=1.8)
     if val:
         ax.plot(*zip(*val), marker="o", label="text val loss", linewidth=1.6)
+    if text_val:
+        ax.plot(*zip(*text_val), marker="o", label="text val loss", linewidth=1.6)
     if image_val:
         ax.plot(*zip(*image_val), marker="o", label="image val loss", linewidth=1.6)
     if wrong:

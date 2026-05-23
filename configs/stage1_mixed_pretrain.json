@@ -1,0 +1,31 @@
+{
+  "name": "Arc-124M-VL mixed pretraining v0.4",
+  "goal": "Text-heavy from-scratch pretraining with a small image-caption stream present from the start.",
+  "total_sequence_tokens": 20000000000,
+  "text_weight": 0.96,
+  "image_weight": 0.04,
+  "text_data": {
+    "mixture": "configs/stage1_text_mix.jsonl",
+    "fineweb_edu_within_text": 0.60,
+    "dclm_within_text": 0.40
+  },
+  "image_data": {
+    "manifest": "COCO + Flickr30k prepared JSONL",
+    "recommended_sources": [
+      "jxie/coco_captions",
+      "AnyModal/flickr30k"
+    ],
+    "caption_prefixes": [
+      "",
+      "A photo of ",
+      "The image shows ",
+      "In this scene, ",
+      "This is "
+    ]
+  },
+  "followup_grounding": {
+    "sequence_tokens": "500M-1B",
+    "text_replay": 0.60,
+    "image_caption": 0.40
+  }
+}

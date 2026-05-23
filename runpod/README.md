@@ -153,6 +153,42 @@ bash runpod/start_stage1_nohup.sh
 tail -f /workspace/arc_data/logs/nohup_stage1_25b.log
 ```
 
+## Experimental Mixed Stage 1
+
+The `codex/mixed-pretraining` branch also includes `runpod/train_stage1_mixed.sh`.
+Use this only after preparing the text shards, tokenizer, and image-caption
+manifest on the same network volume.
+
+Expected files:
+
+```text
+/workspace/arc_data/tokenizer_32k/
+/workspace/arc_data/tokens_stage1_20b/train/
+/workspace/arc_data/tokens_stage1_20b/val/
+/workspace/arc_data/vl/vl_train.jsonl
+/workspace/arc_data/vl/vl_val.jsonl
+```
+
+Launch manually on the H100 pod first; do a short benchmark before a full run:
+
+```bash
+export ARC_VOL="/workspace"
+export RUN_NAME="stage1_mixed_20b"
+export TOKEN_DIR="/workspace/arc_data/tokens_stage1_20b"
+export IMAGE_MANIFEST="/workspace/arc_data/vl/vl_train.jsonl"
+export VAL_IMAGE_MANIFEST="/workspace/arc_data/vl/vl_val.jsonl"
+export TARGET_TOKENS=20000000000
+export IMAGE_WEIGHT=0.04
+export BATCH_SIZE=32
+export IMAGE_BATCH_SIZE=32
+export NPROC_PER_NODE=8
+export MAX_STEPS=200
+
+bash runpod/train_stage1_mixed.sh
+```
+
+If that benchmark looks healthy, raise `MAX_STEPS` for the real run.
+
 ## Upload Checkpoints To Hugging Face
 
 Run this later from a cheap pod attached to the same volume.

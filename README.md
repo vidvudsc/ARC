@@ -206,6 +206,44 @@ Ordinary step checkpoints are crash-recovery checkpoints. By default the trainer
 
 This does not delete fixed billion-token milestones or `*_last.pt`.
 
+## Experimental Stage 1: Mixed Text+Image Pretraining
+
+The `codex/mixed-pretraining` branch adds an experimental v0.4-style trainer
+for text-heavy multimodal pretraining from scratch:
+
+```text
+96% text-only batches
+ 4% image-caption batches
+```
+
+This is not chat tuning. It keeps the same autoregressive next-token objective,
+but lets the decoder see image-conditioned sequences from the beginning instead
+of attaching vision only after the text run.
+
+Run shape:
+
+```bash
+PYTHONPATH=src python -m arc.train_mixed \
+  --config config.json \
+  --token_shards /workspace/arc_data/tokens_stage1_20b/train \
+  --val_token_shards /workspace/arc_data/tokens_stage1_20b/val \
+  --tokenizer_dir /workspace/arc_data/tokenizer_32k \
+  --image_manifest /workspace/arc_data/vl/vl_train.jsonl \
+  --val_image_manifest /workspace/arc_data/vl/vl_val.jsonl \
+  --out_dir /workspace/arc_data/checkpoints_stage1_mixed_20b \
+  --device cuda \
+  --dtype bfloat16 \
+  --batch_size 32 \
+  --image_batch_size 32 \
+  --image_weight 0.04 \
+  --target_tokens 20000000000 \
+  --compile
+```
+
+Important: benchmark this path separately before any expensive H100 run. Mixed
+pretraining uses image decoding/loading during Stage 1, and its throughput may
+be lower than the text-only path.
+
 ## Throughput Gate
 
 Benchmark on the actual 8xH100 setup before a real run.
