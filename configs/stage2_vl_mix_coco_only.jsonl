@@ -1,0 +1,2 @@
+{"name":"text_replay","dataset":"configs/stage1_text_mix.jsonl","config":"mixture","split":"train","weight":0.60,"role":"language_retention","notes":"Text replay prevents language degradation during image grounding."}
+{"name":"coco_captions","dataset":"jxie/coco_captions","config":"default","split":"train","weight":0.40,"target_examples":600000,"role":"clean_caption_grounding","notes":"Human-written natural-image captions; expanded as one image-caption pair per caption."}

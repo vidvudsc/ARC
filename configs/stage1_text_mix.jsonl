@@ -1,0 +1,2 @@
+{"name":"fineweb_edu","dataset":"HuggingFaceFW/fineweb-edu","config":"default","split":"train","weight":0.60,"target_tokens":18000000000,"role":"educational_web","notes":"Cleaner educational web text for explanations, general language, and factual prose."}
+{"name":"dclm_100bt_shuffled","dataset":"HuggingFaceFW/dclm_100BT-shuffled","config":"default","split":"train","weight":0.40,"target_tokens":12000000000,"role":"filtered_web","notes":"Globally shuffled high-quality DCLM subset; complementary broad pretraining distribution."}

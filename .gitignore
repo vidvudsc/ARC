@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+runs/
+checkpoints/
+data/raw/
+data/cache/
+wandb/
+.DS_Store
+

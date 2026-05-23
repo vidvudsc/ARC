@@ -1,0 +1,35 @@
+{
+  "stage2a": {
+    "name": "vision_alignment",
+    "train": [
+      "vision encoder",
+      "visual resampler",
+      "image projector",
+      "image_start embedding row",
+      "image_end embedding row"
+    ],
+    "freeze": [
+      "decoder transformer blocks",
+      "main text embeddings except image boundary rows",
+      "lm head"
+    ]
+  },
+  "stage2b": {
+    "name": "partial_lm_unfreeze",
+    "unfreeze_final_decoder_layers": 2,
+    "mix": {
+      "text_replay": 0.6,
+      "image_caption": 0.4
+    },
+    "lr_rule": "LM layers lower LR than vision/projector"
+  },
+  "stage2c": {
+    "name": "optional_full_low_lr_unfreeze",
+    "do_only_if": [
+      "text validation loss is stable",
+      "image validation is still improving",
+      "no language degradation"
+    ]
+  }
+}
+

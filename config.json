@@ -1,0 +1,22 @@
+{
+  "model_name": "Arc-124M-VL-v0.3",
+  "parameter_target": "~124M total parameters including vision",
+  "vocab_size": 32768,
+  "d_model": 768,
+  "n_layers": 12,
+  "n_heads": 12,
+  "ffn_hidden": 2176,
+  "max_seq_len": 1024,
+  "dropout": 0.0,
+  "tie_embeddings": true,
+  "norm": "rmsnorm",
+  "mlp": "swiglu",
+  "position": "rope",
+  "image_size": 224,
+  "patch_size": 16,
+  "vision_width": 384,
+  "vision_layers": 4,
+  "vision_heads": 6,
+  "vision_resampler_tokens": 32,
+  "dtype": "bfloat16"
+}

@@ -1,0 +1,13 @@
+{
+  "stage1": [
+    {"tokens": 5000000000, "path": "checkpoints/arc124_text_5b.pt"},
+    {"tokens": 10000000000, "path": "checkpoints/arc124_text_10b.pt"},
+    {"tokens": 20000000000, "path": "checkpoints/arc124_text_20b.pt"},
+    {"tokens": 30000000000, "path": "checkpoints/arc124_text_30b.pt"}
+  ],
+  "stage2": [
+    {"name": "projector_align", "path": "checkpoints/arc124_vl_projector_align.pt"},
+    {"name": "vl_base", "path": "checkpoints/arc124_vl_base.pt"}
+  ]
+}
+
