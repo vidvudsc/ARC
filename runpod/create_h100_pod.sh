@@ -5,11 +5,10 @@ set -euo pipefail
 : "${RUNPOD_DATACENTER_ID:?Set RUNPOD_DATACENTER_ID to the same datacenter as the network volume}"
 
 POD_NAME="${POD_NAME:-arc-h100-stage1}"
-GPU_ID="${GPU_ID:-NVIDIA H100 SXM}"
+GPU_ID="${GPU_ID:-NVIDIA H100 80GB HBM3}"
 GPU_COUNT="${GPU_COUNT:-8}"
 CONTAINER_DISK_GB="${CONTAINER_DISK_GB:-80}"
-TEMPLATE_ID="${TEMPLATE_ID:-runpod-torch-v21}"
-TERMINATE_AFTER="${TERMINATE_AFTER:-4h}"
+TEMPLATE_ID="${TEMPLATE_ID:-runpod-torch-v240}"
 
 runpodctl pod create \
   --name "$POD_NAME" \
@@ -19,11 +18,11 @@ runpodctl pod create \
   --container-disk-in-gb "$CONTAINER_DISK_GB" \
   --network-volume-id "$RUNPOD_NETWORK_VOLUME_ID" \
   --data-center-ids "$RUNPOD_DATACENTER_ID" \
-  --ports "22/tcp" \
-  --docker-args "sleep infinity" \
-  --terminate-after "$TERMINATE_AFTER"
+  --ports "22/tcp"
 
 echo
 echo "Get pod details and SSH info with:"
 echo "  runpodctl pod list"
 echo "  runpodctl pod get <pod-id>"
+echo "Delete the pod when finished with:"
+echo "  runpodctl pod delete <pod-id>"

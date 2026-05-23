@@ -43,13 +43,12 @@ export RUNPOD_NETWORK_VOLUME_ID="your-volume-id"
 
 ## Create Cheap Prep Pod
 
-The default uses the documented `runpod-torch-v21` template and a cheap GPU.
+The default uses the documented `runpod-torch-v240` template and a cheap GPU.
 
 ```bash
 export RUNPOD_DATACENTER_ID="US-GA-1"
 export RUNPOD_NETWORK_VOLUME_ID="your-volume-id"
-export GPU_ID="NVIDIA RTX 4000 Ada"
-export TERMINATE_AFTER="24h"
+export GPU_ID="NVIDIA RTX 4000 Ada Generation"
 bash runpod/create_prep_pod.sh
 ```
 
@@ -113,9 +112,8 @@ runpodctl pod delete <pod-id>
 ```bash
 export RUNPOD_DATACENTER_ID="US-GA-1"
 export RUNPOD_NETWORK_VOLUME_ID="your-volume-id"
-export GPU_ID="NVIDIA H100 SXM"
+export GPU_ID="NVIDIA H100 80GB HBM3"
 export GPU_COUNT=8
-export TERMINATE_AFTER="4h"
 bash runpod/create_h100_pod.sh
 ```
 
