@@ -144,6 +144,23 @@ def next_batch(loader: DataLoader, iterator):
         return next(iterator), iterator
 
 
+def choose_batch_kind(
+    rng: random.Random,
+    image_weight: float,
+    *,
+    distributed: bool,
+    rank: int,
+    device: torch.device,
+) -> bool:
+    if not distributed:
+        return rng.random() < image_weight
+    flag = torch.empty((), device=device, dtype=torch.int64)
+    if is_main_process(rank):
+        flag.fill_(1 if rng.random() < image_weight else 0)
+    dist.broadcast(flag, src=0)
+    return bool(flag.item())
+
+
 def text_forward_loss(
     model: torch.nn.Module,
     batch: torch.Tensor,
@@ -477,7 +494,13 @@ def main() -> None:
         step_tokens = 0
         step_batch_kind = "mixed"
         for micro_step in range(args.grad_accum):
-            use_image = rng.random() < args.image_weight
+            use_image = choose_batch_kind(
+                rng,
+                args.image_weight,
+                distributed=distributed,
+                rank=rank,
+                device=device,
+            )
             sync_context = (
                 model.no_sync()
                 if distributed and isinstance(model, DistributedDataParallel) and micro_step < args.grad_accum - 1
@@ -501,8 +524,16 @@ def main() -> None:
         torch.nn.utils.clip_grad_norm_([param for param in model.parameters() if param.requires_grad], args.grad_clip)
         optimizer.step()
         scheduler.step()
-        tokens_seen += step_tokens * world_size
-        running_loss = step_loss if step == start_step else 0.95 * running_loss + 0.05 * step_loss
+        step_tokens_tensor = torch.tensor(step_tokens, device=device, dtype=torch.long)
+        step_loss_tensor = torch.tensor(step_loss, device=device)
+        if distributed:
+            dist.all_reduce(step_tokens_tensor, op=dist.ReduceOp.SUM)
+            dist.all_reduce(step_loss_tensor, op=dist.ReduceOp.SUM)
+            step_loss_for_log = float((step_loss_tensor / world_size).detach().cpu())
+        else:
+            step_loss_for_log = step_loss
+        tokens_seen += int(step_tokens_tensor.item())
+        running_loss = step_loss_for_log if step == start_step else 0.95 * running_loss + 0.05 * step_loss_for_log
         if step % args.log_every == 0 and is_main_process(rank):
             now = time.time()
             elapsed = max(now - t0, 1e-6)
