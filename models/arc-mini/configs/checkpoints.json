@@ -1,0 +1,11 @@
+{
+  "stage1": [
+    {"tokens": 100000000, "path": "checkpoints/arc_mini_text_100m.pt"},
+    {"tokens": 500000000, "path": "checkpoints/arc_mini_text_500m.pt"},
+    {"tokens": 1000000000, "path": "checkpoints/arc_mini_text_1b.pt"}
+  ],
+  "stage2": [
+    {"name": "mini_vl_polish", "path": "checkpoints/arc_mini_vl_polish.pt"},
+    {"name": "mini_vl_base", "path": "checkpoints/arc_mini_vl_base.pt"}
+  ]
+}

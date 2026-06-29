@@ -1,0 +1,11 @@
+{
+  "stage1": [
+    {"tokens": 100000000, "path": "checkpoints/arc_pico_text_100m.pt"},
+    {"tokens": 300000000, "path": "checkpoints/arc_pico_text_300m.pt"},
+    {"tokens": 500000000, "path": "checkpoints/arc_pico_text_500m.pt"}
+  ],
+  "stage2": [
+    {"name": "pico_vl_polish", "path": "checkpoints/arc_pico_vl_polish.pt"},
+    {"name": "pico_vl_base", "path": "checkpoints/arc_pico_vl_base.pt"}
+  ]
+}

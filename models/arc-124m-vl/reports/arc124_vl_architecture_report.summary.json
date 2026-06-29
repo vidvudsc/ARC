@@ -1,0 +1,10 @@
+{
+  "pdf": "/Users/vidvudscalitis/Desktop/CODING/MultiModal/arc/reports/arc124_vl_architecture_report.pdf",
+  "model": "Arc-124M-VL-v0.3",
+  "params": {
+    "total": 124366464,
+    "text_plus_embeddings": 113658624,
+    "vision": 10707840
+  },
+  "pages": 10
+}

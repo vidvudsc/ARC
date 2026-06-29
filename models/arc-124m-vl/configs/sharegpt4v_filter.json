@@ -1,0 +1,50 @@
+{
+  "source": "Lin-Chen/ShareGPT4V",
+  "use": "ShareGPT4V-PT / caption-style examples only",
+  "language": "en",
+  "min_tokens": 12,
+  "max_tokens": 128,
+  "strict_max_tokens": 96,
+  "keep_if": [
+    "caption-style",
+    "natural image focused",
+    "visually grounded at 224px",
+    "objects/scenes/actions/colors/attributes/layout"
+  ],
+  "drop_if": [
+    "assistant/chat formatted",
+    "question-answer formatted",
+    "OCR-heavy",
+    "document-heavy",
+    "chart/graph/table-heavy",
+    "UI screenshot/webpage/screen capture",
+    "PDF/slide/receipt/form/invoice image",
+    "code screenshot",
+    "meme-heavy",
+    "extremely long caption",
+    "caption relies on tiny text",
+    "caption requires exact counting"
+  ],
+  "drop_substrings_case_insensitive": [
+    "User:",
+    "Assistant:",
+    "Question:",
+    "Answer:",
+    "Q:",
+    "A:",
+    "the text reads",
+    "the sign says",
+    "the document",
+    "the chart",
+    "the graph",
+    "the table",
+    "screenshot",
+    "webpage",
+    "interface",
+    "receipt",
+    "invoice",
+    "form",
+    "PDF",
+    "slide"
+  ]
+}

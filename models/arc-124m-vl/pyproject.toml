@@ -1,0 +1,16 @@
+[project]
+name = "arc"
+version = "0.1.0"
+description = "Arc 124M-class from-scratch multimodal GPT research model"
+requires-python = ">=3.11"
+dependencies = [
+  "torch>=2.4",
+  "datasets>=2.19",
+  "tokenizers>=0.15",
+  "numpy>=1.26",
+  "pillow>=10.0",
+  "tqdm>=4.66"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

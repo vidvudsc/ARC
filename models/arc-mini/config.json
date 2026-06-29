@@ -1,0 +1,22 @@
+{
+  "model_name": "Arc-Mini-VL-v0.1",
+  "parameter_target": "~50M total parameters including vision",
+  "vocab_size": 16384,
+  "d_model": 512,
+  "n_layers": 10,
+  "n_heads": 8,
+  "ffn_hidden": 1792,
+  "max_seq_len": 512,
+  "dropout": 0.0,
+  "tie_embeddings": true,
+  "norm": "rmsnorm",
+  "mlp": "swiglu",
+  "position": "rope",
+  "image_size": 224,
+  "patch_size": 16,
+  "vision_width": 256,
+  "vision_layers": 3,
+  "vision_heads": 4,
+  "vision_resampler_tokens": 24,
+  "dtype": "bfloat16"
+}

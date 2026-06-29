@@ -1,0 +1,10 @@
+{
+  "pdf": "/Users/vidvudscalitis/Desktop/CODING/MultiModal/arc-pico/reports/arc_pico_vl_architecture_report.pdf",
+  "model": "Arc-Pico-VL-v0.1",
+  "params": {
+    "total": 15267776,
+    "text_plus_embeddings": 13702400,
+    "vision": 1565376
+  },
+  "pages": 3
+}

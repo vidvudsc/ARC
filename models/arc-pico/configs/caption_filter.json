@@ -1,0 +1,29 @@
+{
+  "source": "COCO + Flickr30k",
+  "use": "clean human-written caption datasets",
+  "language": "en",
+  "min_tokens": 4,
+  "max_tokens": 80,
+  "strict_max_tokens": 64,
+  "drop_substrings_case_insensitive": [
+    "User:",
+    "Assistant:",
+    "Question:",
+    "Answer:",
+    "Q:",
+    "A:",
+    "the text reads",
+    "the document",
+    "the chart",
+    "the graph",
+    "the table",
+    "screenshot",
+    "webpage",
+    "interface",
+    "receipt",
+    "invoice",
+    "form",
+    "PDF",
+    "slide"
+  ]
+}

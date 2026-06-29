@@ -1,0 +1,22 @@
+{
+  "model_name": "Arc-Mini-Tiny-Smoke",
+  "parameter_target": "tiny smoke-test model",
+  "vocab_size": 4096,
+  "d_model": 96,
+  "n_layers": 2,
+  "n_heads": 4,
+  "ffn_hidden": 256,
+  "max_seq_len": 128,
+  "dropout": 0.0,
+  "tie_embeddings": true,
+  "norm": "rmsnorm",
+  "mlp": "swiglu",
+  "position": "rope",
+  "image_size": 160,
+  "patch_size": 16,
+  "vision_width": 64,
+  "vision_layers": 1,
+  "vision_heads": 4,
+  "vision_resampler_tokens": 8,
+  "dtype": "bfloat16"
+}

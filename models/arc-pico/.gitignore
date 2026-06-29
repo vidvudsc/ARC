@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+runs/
+checkpoints/
+downloads/
+*.tgz
+data/raw/
+data/cache/
+wandb/
+.DS_Store
